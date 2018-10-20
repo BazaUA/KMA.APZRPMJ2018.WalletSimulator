@@ -116,18 +116,18 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             {
                 if (!new EmailAddressAttribute().IsValid(_email))
                 {
-                    MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
+                    MessageBox.Show(string.Format(Resources.SignUp_EmailIsNotValid, _email));
                     return;
                 }
                 if (DBManager.UserExists(_login))
                 {
-                    MessageBox.Show(String.Format(Resources.SignUp_UserAlreadyExists, _login));
+                    MessageBox.Show(string.Format(Resources.SignUp_UserAlreadyExists, _login));
                     return;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
+                MessageBox.Show(string.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
                     ex.Message));
                 return;
             }
@@ -139,20 +139,20 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format(Resources.SignUp_FailedToCreateUser, Environment.NewLine,
+                MessageBox.Show(string.Format(Resources.SignUp_FailedToCreateUser, Environment.NewLine,
                     ex.Message));
                 return;
             }
-            MessageBox.Show(String.Format(Resources.SignUp_UserSuccessfulyCreated, _login));
+            MessageBox.Show(string.Format(Resources.SignUp_UserSuccessfulyCreated, _login));
             NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
         private bool SignUpCanExecute(object obj)
         {
-            return !String.IsNullOrEmpty(_login) &&
-                   !String.IsNullOrEmpty(_password) &&
-                   !String.IsNullOrEmpty(_firstName) &&
-                   !String.IsNullOrEmpty(_lastName) &&
-                   !String.IsNullOrEmpty(_email);
+            return !string.IsNullOrWhiteSpace(_login) &&
+                   !string.IsNullOrWhiteSpace(_password) &&
+                   !string.IsNullOrWhiteSpace(_firstName) &&
+                   !string.IsNullOrWhiteSpace(_lastName) &&
+                   !string.IsNullOrWhiteSpace(_email);
         }
         private void SignInExecute(object obj)
         {

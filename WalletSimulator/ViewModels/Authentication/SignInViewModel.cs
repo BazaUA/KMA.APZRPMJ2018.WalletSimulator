@@ -91,13 +91,13 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
+                MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
                     ex.Message));
                 return;
             }
             if (currentUser == null)
             {
-                MessageBox.Show(String.Format(Resources.SignIn_UserDoesntExist, _login));
+                MessageBox.Show(string.Format(Resources.SignIn_UserDoesntExist, _login));
                 return;
             }
             try
@@ -110,7 +110,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
+                MessageBox.Show(string.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
                     ex.Message));
                 return;
             }
@@ -120,7 +120,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         private bool SignInCanExecute(object obj)
         {
-            return !String.IsNullOrWhiteSpace(_login) && !String.IsNullOrWhiteSpace(_password);
+            return !string.IsNullOrWhiteSpace(_login) && !string.IsNullOrWhiteSpace(_password);
         }
 
         private void CloseExecute(object obj)

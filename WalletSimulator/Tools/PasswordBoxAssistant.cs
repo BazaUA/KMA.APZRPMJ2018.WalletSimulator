@@ -16,7 +16,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 
         private static void OnBoundPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            PasswordBox box = d as PasswordBox;
+            var box = d as PasswordBox;
 
             // only handle this event when the property is attached to a PasswordBox
             // and when the BindPassword attached property has been set to true
@@ -28,7 +28,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
             // avoid recursive updating by ignoring the box's changed event
             box.PasswordChanged -= HandlePasswordChanged;
 
-            string newPassword = (string)e.NewValue;
+            var newPassword = (string)e.NewValue;
 
             if (!GetUpdatingPassword(box))
             {
@@ -43,15 +43,15 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
             // when the BindPassword attached property is set on a PasswordBox,
             // start listening to its PasswordChanged event
 
-            PasswordBox box = dp as PasswordBox;
+            var box = dp as PasswordBox;
 
             if (box == null)
             {
                 return;
             }
 
-            bool wasBound = (bool)e.OldValue;
-            bool needToBind = (bool)e.NewValue;
+            var wasBound = (bool)e.OldValue;
+            var needToBind = (bool)e.NewValue;
 
             if (wasBound)
             {
@@ -66,7 +66,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 
         private static void HandlePasswordChanged(object sender, RoutedEventArgs e)
         {
-            PasswordBox box = sender as PasswordBox;
+            var box = sender as PasswordBox;
             if (box == null)
                 return;
             // set a flag to indicate that we're updating the password

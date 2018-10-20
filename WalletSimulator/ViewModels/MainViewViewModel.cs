@@ -16,7 +16,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
     {
         #region Fields
         private Request _selectedRequest;
-        private ObservableCollection<Request> _requests;
+
         #region Commands
         private ICommand _addRequestCommand;
         private ICommand _logout;
@@ -55,13 +55,11 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 
         #endregion
 
-        public ObservableCollection<Request> Requests
-        {
-            get { return _requests; }
-        }
+        public ObservableCollection<Request> Requests { get; private set; }
+
         public Request SelectedRequest
         {
-            get { return _selectedRequest; }
+            get => _selectedRequest;
             set
             {
                 _selectedRequest = value;
@@ -85,10 +83,10 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         }
         private void FillRequests()
         {
-            _requests = new ObservableCollection<Request>();
+            Requests = new ObservableCollection<Request>();
             foreach (var Request in StationManager.CurrentUser.Requests)
             {
-                _requests.Add(Request);
+                Requests.Add(Request);
             }
             
         }
@@ -108,14 +106,12 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         private void AddRequestExecute(object o)
         {
             // Create OpenFileDialog 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            var dlg = new Microsoft.Win32.OpenFileDialog {DefaultExt = ".txt", Filter = "Text|*.txt"};
 
             // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".txt";
-            dlg.Filter = "Text|*.txt";
 
             // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = dlg.ShowDialog();
+            var result = dlg.ShowDialog();
 
 
             // Get the selected file name and display in a TextBox 
@@ -124,28 +120,28 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 // Open document 
                 try
                 {
-                    string filename = dlg.FileName;
-                    string text = File.ReadAllText(filename);
-                    WordsCont wordsCont = new WordsCont(text);
+                    var filename = dlg.FileName;
+                    var text = File.ReadAllText(filename);
+                    var wordsCont = new WordsCont(text);
              
-                    Request Request = new Request(
+                    var request = new Request(
                         filename,
                         wordsCont.NumberOfCharacters,
                         wordsCont.NumberOfWords,
                         wordsCont.NumberOfLines,
                         StationManager.CurrentUser);
-                    _requests.Add(Request);
-                    _selectedRequest = Request;
+                    Requests.Add(request);
+                    _selectedRequest = request;
                 }
                 catch(Exception e)
                 {
-                    MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,e.Message));
+                    MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,e.Message));
                     return;
                 }
             }
             else
             {
-                MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
+                MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
                     "Invalid document"));
                 return;
             }

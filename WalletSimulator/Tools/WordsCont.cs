@@ -7,40 +7,25 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 
     public class WordsCont 
     {
-        private string _text;
-        private long _numberOfWords;
-        private long _numberOfLines;
-        private long _numberOfCharacters;
+        private readonly string _text;
+
         public WordsCont(string text)
         {
             this._text = text;
-            init();
+            Init();
         }
 
-        private void init()
+        private void Init()
         {
-            _numberOfLines = _text.Split('\n').Length;
-            _numberOfWords = Regex.Matches(_text, @"\b\w+\b").Count;
-            _numberOfCharacters = _text.Length;
+            NumberOfLines = _text.Split('\n').Length;
+            NumberOfWords = Regex.Matches(_text, @"\b\w+\b").Count;
+            NumberOfCharacters = _text.Length;
         }
 
-        public long NumberOfWords
-        {
-            get { return _numberOfWords; }
-            private set { _numberOfWords = value; }
-        }
+        public long NumberOfWords { get; private set; }
 
-        public long NumberOfLines
-        {
-            get { return _numberOfLines; }
-            private set { _numberOfLines = value; }
-        }
-        public long NumberOfCharacters
-        {
-            get { return _numberOfCharacters; }
-            private set { _numberOfCharacters = value; }
-        }
+        public long NumberOfLines { get; private set; }
 
-
+        public long NumberOfCharacters { get; private set; }
     }
 }

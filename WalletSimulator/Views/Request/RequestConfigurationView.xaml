@@ -24,6 +24,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <controls:LabelAndTextControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Caption="Path" Margin="5"
+                                      IsEnabled="False"
                                       Text="{Binding Path, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
         <controls:LabelAndTextControl Grid.Row="2" Grid.Column="0" Caption="Number of chars" Margin="5"
                                       IsEnabled="False"

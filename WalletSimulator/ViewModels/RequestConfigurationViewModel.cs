@@ -16,39 +16,29 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         
         public string Path
         {
-            get { return _currentRequest.Path; }
+            get => _currentRequest.Path;
             set
             {
                 _currentRequest.Path = value;
                 OnPropertyChanged();
             }
         }
-        public long NumberOfChars
-        {
-            get { return _currentRequest.NumberOfChars; }
-        }
-        public long NumberOfWords
-        {
-            get { return _currentRequest.NumberOfWords; }
-        }
+        public long NumberOfChars => _currentRequest.NumberOfChars;
 
-        public long NumberOfStrings
-        {
-            get { return _currentRequest.NumberOfStrings; }
-        }
+        public long NumberOfWords => _currentRequest.NumberOfWords;
 
-        public String DateRequest
-        {
-            get { return _currentRequest.DateRequest.ToString(); }
-        }
+        public long NumberOfStrings => _currentRequest.NumberOfStrings;
+
+        public string DateRequest => _currentRequest.DateRequest.ToString();
+
         #endregion
 
 
 
         #region Constructor
-        public RequestConfigurationViewModel(Request Request)
+        public RequestConfigurationViewModel(Request request)
         {
-            _currentRequest = Request;
+            _currentRequest = request;
         }
         #endregion
         #region EventsAndHandlers
