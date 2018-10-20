@@ -1,56 +1,70 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
-using KMA.APZRPMJ2018.WalletSimulator.Managers;
-using KMA.APZRPMJ2018.WalletSimulator.Models;
-using KMA.APZRPMJ2018.WalletSimulator.Properties;
-using KMA.APZRPMJ2018.WalletSimulator.Tools;
+using KMA.APZRPMJ2018.RequestSimulator.Managers;
+using KMA.APZRPMJ2018.RequestSimulator.Models;
+using KMA.APZRPMJ2018.RequestSimulator.Properties;
+using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.ViewModels
+namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 {
     class MainViewViewModel : INotifyPropertyChanged
     {
         #region Fields
-        private Wallet _selectedWallet;
-        private ObservableCollection<Wallet> _wallets;
+        private Request _selectedRequest;
+        private ObservableCollection<Request> _requests;
         #region Commands
-        private ICommand _addWalletCommand;
-        private ICommand _deleteWalletCommand;
+        private ICommand _addRequestCommand;
+        private ICommand _logout;
+        private ICommand _deleteRequestCommand;
         #endregion
         #endregion
 
         #region Properties
         #region Commands
 
-        public ICommand AddWalletCommand
+        public ICommand AddRequestCommand
         {
             get
             {
-                return _addWalletCommand ?? (_addWalletCommand = new RelayCommand<object>(AddWalletExecute));
+                return _addRequestCommand ?? (_addRequestCommand = new RelayCommand<object>(AddRequestExecute));
             }
         }
 
-        public ICommand DeleteWalletCommand
+        public ICommand LogOut
         {
             get
             {
-                return _deleteWalletCommand ?? (_deleteWalletCommand = new RelayCommand<KeyEventArgs>(DeleteWalletExecute));
+                return _logout ?? (_logout = new RelayCommand<object>(LogOutExecute));
+            }
+        }
+
+        
+
+        public ICommand DeleteRequestCommand
+        {
+            get
+            {
+                return _deleteRequestCommand ?? (_deleteRequestCommand = new RelayCommand<KeyEventArgs>(DeleteRequestExecute));
             }
         }
 
         #endregion
 
-        public ObservableCollection<Wallet> Wallets
+        public ObservableCollection<Request> Requests
         {
-            get { return _wallets; }
+            get { return _requests; }
         }
-        public Wallet SelectedWallet
+        public Request SelectedRequest
         {
-            get { return _selectedWallet; }
+            get { return _selectedRequest; }
             set
             {
-                _selectedWallet = value;
+                _selectedRequest = value;
                 OnPropertyChanged();
             }
         }
@@ -60,55 +74,97 @@ namespace KMA.APZRPMJ2018.WalletSimulator.ViewModels
         #region Constructor
         public MainViewViewModel()
         {
-            FillWallets();
+            FillRequests();
             PropertyChanged += OnPropertyChanged;
         }
         #endregion
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (propertyChangedEventArgs.PropertyName == "SelectedWallet")
-                OnWalletChanged(_selectedWallet);
+            if (propertyChangedEventArgs.PropertyName == "SelectedRequest")
+                OnRequestChanged(_selectedRequest);
         }
-        private void FillWallets()
+        private void FillRequests()
         {
-            _wallets = new ObservableCollection<Wallet>();
-            foreach (var wallet in StationManager.CurrentUser.Wallets)
+            _requests = new ObservableCollection<Request>();
+            foreach (var Request in StationManager.CurrentUser.Requests)
             {
-                _wallets.Add(wallet);
+                _requests.Add(Request);
             }
-            if (_wallets.Count > 0)
-            {
-                _selectedWallet = Wallets[0];
-            }
+            
         }
 
-        private void DeleteWalletExecute(KeyEventArgs args)
+        private void DeleteRequestExecute(KeyEventArgs args)
         {
             if (args.Key != Key.Delete) return;
 
-            if (SelectedWallet == null) return;
+            if (SelectedRequest == null) return;
 
-            StationManager.CurrentUser.Wallets.RemoveAll(uwr => uwr.Guid == SelectedWallet.Guid);
-            FillWallets();
-            OnPropertyChanged(nameof(SelectedWallet));
-            OnPropertyChanged(nameof(Wallets));
+            StationManager.CurrentUser.Requests.RemoveAll(uwr => uwr.Guid == SelectedRequest.Guid);
+            FillRequests();
+            OnPropertyChanged(nameof(SelectedRequest));
+            OnPropertyChanged(nameof(Requests));
         }
 
-        private void AddWalletExecute(object o)
+        private void AddRequestExecute(object o)
         {
-            Wallet wallet = new Wallet("New Wallet", StationManager.CurrentUser);
-            _wallets.Add(wallet);
-            _selectedWallet = wallet;
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text|*.txt";
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                try
+                {
+                    string filename = dlg.FileName;
+                    string text = File.ReadAllText(filename);
+                    WordsCont wordsCont = new WordsCont(text);
+             
+                    Request Request = new Request(
+                        filename,
+                        wordsCont.NumberOfCharacters,
+                        wordsCont.NumberOfWords,
+                        wordsCont.NumberOfLines,
+                        StationManager.CurrentUser);
+                    _requests.Add(Request);
+                    _selectedRequest = Request;
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,e.Message));
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
+                    "Invalid document"));
+                return;
+            }
+
         }
-        
+
+        private void LogOutExecute(object o)
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+        }
+
         #region EventsAndHandlers
         #region Loader
-        internal event WalletChangedHandler WalletChanged;
-        internal delegate void WalletChangedHandler(Wallet wallet);
+        internal event RequestChangedHandler RequestChanged;
+        internal delegate void RequestChangedHandler(Request Request);
 
-        internal virtual void OnWalletChanged(Wallet wallet)
+        internal virtual void OnRequestChanged(Request Request)
         {
-            WalletChanged?.Invoke(wallet);
+            RequestChanged?.Invoke(Request);
         }
         #endregion
         #region PropertyChanged

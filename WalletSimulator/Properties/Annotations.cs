@@ -30,7 +30,7 @@ using System;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Properties
+namespace KMA.APZRPMJ2018.RequestSimulator.Properties
 {
   /// <summary>
   /// Indicates that the value of the marked element could be <c>null</c> sometimes,

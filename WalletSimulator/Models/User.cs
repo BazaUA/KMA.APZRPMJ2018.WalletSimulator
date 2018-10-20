@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using KMA.APZRPMJ2018.RequestSimulator.Tools;
 using KMA.APZRPMJ2018.WalletSimulator.Tools;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Models
+namespace KMA.APZRPMJ2018.RequestSimulator.Models
 {
     public class User
     {
@@ -19,7 +20,7 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Models
         private string _login;
         private string _password;
         private DateTime _lastLoginDate;
-        private List<Wallet> _wallets;
+        private List<Request> _requests;
         #endregion
 
         #region Properties
@@ -102,15 +103,15 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Models
             }
         }
 
-        public List<Wallet> Wallets
+        public List<Request> Requests
         {
             get
             {
-                return _wallets;
+                return _requests;
             }
             private set
             {
-                _wallets = value;
+                _requests = value;
             }
         }
         #endregion
@@ -131,22 +132,21 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Models
 
         private User()
         {
-            _wallets = new List<Wallet>();
+            _requests = new List<Request>();
         }
 
         #endregion
 
         private void SetPassword(string password)
         {
-            _password = Encrypting.EncryptText(password, PubblicKey);
+            _password = Encrypting.Encrypt(password, PrivateKey);
         }
         public bool CheckPassword(string password)
         {
             try
             {
-                string res = Encrypting.DecryptString(_password, PrivateKey);
-                string res2 = Encrypting.GetMd5HashForString(password);
-                return res == res2;
+                string res = Encrypting.Decrypt(_password, PrivateKey);
+                return res == password;
             }
             catch (Exception)
             {

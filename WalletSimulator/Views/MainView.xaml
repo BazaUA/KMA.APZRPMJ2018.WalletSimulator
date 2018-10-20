@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="KMA.APZRPMJ2018.WalletSimulator.Views.MainView"
+﻿<UserControl x:Class="KMA.APZRPMJ2018.RequestSimulator.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,17 +14,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Button Content="Add Wallet" Command="{Binding AddWalletCommand}" Grid.Row="0"/>
-        <ListBox Grid.Row="1"  ItemsSource="{Binding Wallets}" SelectedItem="{Binding SelectedWallet}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
+        <Button Content="Add Request" Command="{Binding AddRequestCommand}" Grid.Row="0"/>
+        <ListBox Grid.Row="1"  ItemsSource="{Binding Requests}" SelectedItem="{Binding SelectedRequest}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="Auto" Margin="2">
         <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=Path, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Content="Log Out" Command="{Binding LogOut}" Grid.Row="2"/>
         
     </Grid>
 </UserControl>

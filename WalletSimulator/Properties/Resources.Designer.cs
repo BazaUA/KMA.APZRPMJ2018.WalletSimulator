@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Properties {
+namespace KMA.APZRPMJ2018.RequestSimulator.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KMA.APZRPMJ2018.WalletSimulator.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KMA.APZRPMJ2018.RequestSimulator.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

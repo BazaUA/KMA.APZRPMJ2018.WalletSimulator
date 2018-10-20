@@ -1,9 +1,9 @@
 ﻿using System;
-using KMA.APZRPMJ2018.WalletSimulator.Views;
-using KMA.APZRPMJ2018.WalletSimulator.Views.Authentication;
-using SignUpView = KMA.APZRPMJ2018.WalletSimulator.Views.Authentication.SignUpView;
+using KMA.APZRPMJ2018.RequestSimulator.Views;
+using KMA.APZRPMJ2018.RequestSimulator.Views.Authentication;
+using SignUpView = KMA.APZRPMJ2018.RequestSimulator.Views.Authentication.SignUpView;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Tools
+namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 {
     internal enum ModesEnum
     {
@@ -29,13 +29,13 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Tools
             switch (mode)
             {
                 case ModesEnum.SignIn:
-                    _contentWindow.ContentControl.Content = _signInView ?? (_signInView = new SignInView());
+                    _contentWindow.ContentControl.Content = _signInView = new SignInView();
                     break;
                 case ModesEnum.SingUp:
-                    _contentWindow.ContentControl.Content = _signUpView ?? (_signUpView = new SignUpView());
+                    _contentWindow.ContentControl.Content = _signUpView = new SignUpView();
                     break;
                 case ModesEnum.Main:
-                    _contentWindow.ContentControl.Content = _mainView ?? (_mainView = new MainView());
+                    _contentWindow.ContentControl.Content = _mainView = new MainView();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

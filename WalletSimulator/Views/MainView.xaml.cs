@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using KMA.APZRPMJ2018.WalletSimulator.ViewModels;
-using KMA.APZRPMJ2018.WalletSimulator.Views.Wallet;
+using KMA.APZRPMJ2018.RequestSimulator.ViewModels;
+using KMA.APZRPMJ2018.RequestSimulator.Views.Request;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Views
+namespace KMA.APZRPMJ2018.RequestSimulator.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -11,7 +11,7 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Views
     public partial class MainView
     {
         private MainViewViewModel _mainWindowViewModel;
-        private WalletConfigurationView _currentWalletConfigurationView;
+        private RequestConfigurationView _currentRequestConfigurationView;
 
         public MainView()
         {
@@ -23,22 +23,22 @@ namespace KMA.APZRPMJ2018.WalletSimulator.Views
         {
             Visibility = Visibility.Visible;
             _mainWindowViewModel = new MainViewViewModel();
-            _mainWindowViewModel.WalletChanged+= OnWalletChanged;
+            _mainWindowViewModel.RequestChanged+= OnRequestChanged;
             DataContext = _mainWindowViewModel;
         }
 
-        private void OnWalletChanged(Models.Wallet wallet)
+        private void OnRequestChanged(Models.Request request)
         {
-            if (_currentWalletConfigurationView == null)
+            if (_currentRequestConfigurationView == null)
             {
-                _currentWalletConfigurationView = new WalletConfigurationView(wallet);
-                MainGrid.Children.Add(_currentWalletConfigurationView);
-                Grid.SetRow(_currentWalletConfigurationView, 0);
-                Grid.SetRowSpan(_currentWalletConfigurationView, 2);
-                Grid.SetColumn(_currentWalletConfigurationView, 1);
+                _currentRequestConfigurationView = new RequestConfigurationView(request);
+                MainGrid.Children.Add(_currentRequestConfigurationView);
+                Grid.SetRow(_currentRequestConfigurationView, 0);
+                Grid.SetRowSpan(_currentRequestConfigurationView, 2);
+                Grid.SetColumn(_currentRequestConfigurationView, 1);
             }
             else
-                _currentWalletConfigurationView.DataContext = new WalletConfigurationViewModel(wallet);
+                _currentRequestConfigurationView.DataContext = new RequestConfigurationViewModel(request);
 
         }
         

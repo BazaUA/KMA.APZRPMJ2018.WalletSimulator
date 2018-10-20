@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6DE9FC7C-BD79-448F-A7A4-C5C468BD3F3F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>KMA.APZRPMJ2018.WalletSimulator</RootNamespace>
-    <AssemblyName>WalletSimulator</AssemblyName>
+    <RootNamespace>KMA.APZRPMJ2018.RequestSimulator</RootNamespace>
+    <AssemblyName>RequestSimulator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -94,13 +94,14 @@
     <Compile Include="Managers\NavigationManager.cs" />
     <Compile Include="Managers\DBManager.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Wallet.cs" />
+    <Compile Include="Models\Request.cs" />
     <Compile Include="Tools\Encrypting.cs" />
     <Compile Include="Tools\IContentWindow.cs" />
     <Compile Include="Tools\NavigationModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="Tools\WordsCont.cs" />
     <Compile Include="ViewModels\Authentication\SignUpViewModel.cs" />
-    <Compile Include="ViewModels\WalletConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\RequestConfigurationViewModel.cs" />
     <Compile Include="Views\Authentication\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
     </Compile>
@@ -115,8 +116,8 @@
       <DependentUpon>LabelAndTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewViewModel.cs" />
-    <Compile Include="Views\Wallet\WalletConfigurationView.xaml.cs">
-      <DependentUpon>WalletConfigurationView.xaml</DependentUpon>
+    <Compile Include="Views\Request\RequestConfigurationView.xaml.cs">
+      <DependentUpon>RequestConfigurationView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
@@ -153,7 +154,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Wallet\WalletConfigurationView.xaml">
+    <Page Include="Views\Request\RequestConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,6 @@
-﻿using KMA.APZRPMJ2018.WalletSimulator.ViewModels.Authentication;
+﻿using KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Views.Authentication
+namespace KMA.APZRPMJ2018.RequestSimulator.Views.Authentication
 {  
     internal partial class SignUpView
     {

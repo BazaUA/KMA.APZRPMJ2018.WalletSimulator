@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Tools
+namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 {
     public class RelayCommand<T> : ICommand
     {

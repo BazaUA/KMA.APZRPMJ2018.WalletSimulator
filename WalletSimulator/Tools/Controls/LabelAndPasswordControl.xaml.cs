@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace KMA.APZRPMJ2018.WalletSimulator.Tools.Controls
+namespace KMA.APZRPMJ2018.RequestSimulator.Tools.Controls
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

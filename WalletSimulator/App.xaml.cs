@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using KMA.APZRPMJ2018.WalletSimulator.Managers;
+using KMA.APZRPMJ2018.RequestSimulator.Managers;
 
-namespace KMA.APZRPMJ2018.WalletSimulator
+namespace KMA.APZRPMJ2018.RequestSimulator
 {
     /// <summary>
     /// Interaction logic for App.xaml
