@@ -7,7 +7,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
         #region Fields
         private Guid _guid;
         private string _path;
-        private long _numberOfCharts;
+        private long _numberOfChars;
         private long _numberOfWords;
         private long _numberOfStrings;
         private DateTime _dateRequest;
@@ -25,10 +25,10 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
             get { return _path; }
             set { _path = value; }
         }
-        public long NumberOfCharts
+        public long NumberOfChars
         {
-            get { return _numberOfCharts; }
-            private set { _numberOfCharts = value; }
+            get { return _numberOfChars; }
+            private set { _numberOfChars = value; }
         }
         public long NumberOfWords
         {
@@ -54,7 +54,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
         {
             _guid = Guid.NewGuid();
             _path = title;
-            _numberOfCharts = numberOfCharacters;
+            _numberOfChars = numberOfCharacters;
             _numberOfWords = numberOfWords;
             _numberOfStrings = numberOfLines;
             _dateRequest = DateTime.Now;

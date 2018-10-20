@@ -23,9 +23,9 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 OnPropertyChanged();
             }
         }
-        public long NumberOfCharts
+        public long NumberOfChars
         {
-            get { return _currentRequest.NumberOfCharts; }
+            get { return _currentRequest.NumberOfChars; }
         }
         public long NumberOfWords
         {
