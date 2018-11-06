@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -109,14 +109,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 catch (Exception e)
                 {
                     MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine, e.Message));
-                    return;
                 }
-            }
-            else
-            {
-                MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
-                    "Invalid document"));
-                return;
             }
         }
 
