@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -12,6 +12,7 @@ using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 {
+    
     class MainViewViewModel : INotifyPropertyChanged
     {
         #region Fields
@@ -28,7 +29,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         #endregion
 
         #region Properties
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Commands
 
         public ICommand AddRequestCommand => _addRequestCommand ?? (_addRequestCommand = new RelayCommand<object>(AddRequestExecute));
@@ -105,9 +106,11 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                         StationManager.CurrentUser);
                     Requests.Add(request);
                     _selectedRequest = request;
+                    Logger.Log.Info("Request executed");
                 }
                 catch (Exception e)
                 {
+                    Logger.Log.Error("Failed request",e);
                     MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine, e.Message));
                 }
             }
@@ -115,6 +118,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 
         private void LogOutExecute(object o)
         {
+            Logger.Log.Info("Log out");
             NavigationManager.Instance.Navigate(ModesEnum.SignIn);
         }
 

@@ -112,6 +112,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         private void SignUpExecute(object obj)
         {
+            Logger.Log.Info("SignUp execute");
+
             try
             {
                 if (!new EmailAddressAttribute().IsValid(_email))
@@ -127,6 +129,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             }
             catch (Exception ex)
             {
+                Logger.Log.Error("Exception when SignUp",ex);
                 MessageBox.Show(string.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
                     ex.Message));
                 return;

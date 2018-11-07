@@ -79,11 +79,14 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         private void SignUpExecute(object obj)
         {
+            Logger.Log.Info("Sign Up execute");
             NavigationManager.Instance.Navigate(ModesEnum.SingUp);
         }
 
         private void SignInExecute(object obj)
         {
+            Logger.Log.Info("Sign In Execute");
+
             User currentUser;
             try
             {
@@ -110,6 +113,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             }
             catch (Exception ex)
             {
+                Logger.Log.Error("Exception when user SignIn",ex);
                 MessageBox.Show(string.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
                     ex.Message));
                 return;
@@ -125,6 +129,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         private void CloseExecute(object obj)
         {
+            Logger.Log.Info("Close App");
             StationManager.CloseApp();
         }
 
