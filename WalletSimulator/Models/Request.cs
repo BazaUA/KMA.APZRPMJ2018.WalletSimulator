@@ -2,6 +2,7 @@
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Models
 {
+    [Serializable]
     public class Request
     {
         #region Fields

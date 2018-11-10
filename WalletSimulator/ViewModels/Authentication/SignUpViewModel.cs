@@ -1,7 +1,9 @@
-﻿using System;
+﻿    using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+    using System.Threading;
+    using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
@@ -14,27 +16,30 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
     internal class SignUpViewModel : INotifyPropertyChanged
     {
         #region Fields
+
         private string _password;
         private string _login;
         private string _firstName;
         private string _lastName;
         private string _email;
+
         #region Commands
+
         private ICommand _closeCommand;
         private ICommand _signUpCommand;
         private ICommand _signInCommand;
+
         #endregion
+
         #endregion
 
         #region Properties
+
         #region Command
 
         public ICommand CloseCommand
         {
-            get
-            {
-                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseExecute));
-            }
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseExecute)); }
         }
 
         public ICommand SignUpCommand
@@ -44,13 +49,12 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 return _signUpCommand ?? (_signUpCommand = new RelayCommand<object>(SignUpExecute, SignUpCanExecute));
             }
         }
+
         public ICommand SignInCommand
         {
-            get
-            {
-                return _signInCommand ?? (_signInCommand = new RelayCommand<object>(SignInExecute));
-            }
+            get { return _signInCommand ?? (_signInCommand = new RelayCommand<object>(SignInExecute)); }
         }
+
         #endregion
 
         public string Password
@@ -68,7 +72,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             get { return _login; }
             set
             {
-                _login = value; 
+                _login = value;
                 OnPropertyChanged();
             }
         }
@@ -102,53 +106,64 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 OnPropertyChanged();
             }
         }
+
         #endregion
 
         #region ConstructorAndInit
+
         internal SignUpViewModel()
-        { 
+        {
         }
+
         #endregion
 
-        private void SignUpExecute(object obj)
+        private async void SignUpExecute(object obj)
         {
-            Logger.Log.Info("SignUp execute");
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                try
+                {
+                    if (!new EmailAddressAttribute().IsValid(_email))
+                    {
+                        MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
+                        return false;
+                    }
 
-            try
-            {
-                if (!new EmailAddressAttribute().IsValid(_email))
-                {
-                    MessageBox.Show(string.Format(Resources.SignUp_EmailIsNotValid, _email));
-                    return;
+                    if (DBManager.UserExists(_login))
+                    {
+                        MessageBox.Show(String.Format(Resources.SignUp_UserAlreadyExists, _login));
+                        return false;
+                    }
                 }
-                if (DBManager.UserExists(_login))
+                catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format(Resources.SignUp_UserAlreadyExists, _login));
-                    return;
+                    MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
+                        ex.Message));
+                    return false;
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log.Error("Exception when SignUp",ex);
-                MessageBox.Show(string.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
-                    ex.Message));
-                return;
-            }
-            try
-            {
-                var user = new User(_firstName, _lastName, _email, _login, _password);
-                DBManager.AddUser(user);
-                StationManager.CurrentUser = user;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(string.Format(Resources.SignUp_FailedToCreateUser, Environment.NewLine,
-                    ex.Message));
-                return;
-            }
-            MessageBox.Show(string.Format(Resources.SignUp_UserSuccessfulyCreated, _login));
-            NavigationManager.Instance.Navigate(ModesEnum.Main);
+
+                try
+                {
+                    var user = new User(_firstName, _lastName, _email, _login, _password);
+                    DBManager.AddUser(user);
+                    StationManager.CurrentUser = user;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format(Resources.SignUp_FailedToCreateUser, Environment.NewLine,
+                        ex.Message));
+                    return false;
+                }
+
+                MessageBox.Show(String.Format(Resources.SignUp_UserSuccessfulyCreated, _login));
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+            if (result)
+                NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
+
         private bool SignUpCanExecute(object obj)
         {
             return !string.IsNullOrWhiteSpace(_login) &&
@@ -157,24 +172,53 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                    !string.IsNullOrWhiteSpace(_lastName) &&
                    !string.IsNullOrWhiteSpace(_email);
         }
-        private void SignInExecute(object obj)
+
+        private async void SignInExecute(object obj)
         {
-            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+            var result = await Task.Run(() =>
+            {
+               
+                return true;
+            });
+
+            if (result)
+            {
+                NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+            }
+
         }
-        private void CloseExecute(object obj)
+
+        private async void CloseExecute(object obj)
         {
-            StationManager.CloseApp();
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                
+                
+                return true;
+            });
+            if (result)
+            {
+                Logger.Log("Exited from app from SingUpViewModel");
+                LoaderManager.Instance.HideLoader();
+                StationManager.CloseApp();
+            }
         }
 
         #region EventsAndHandlers
+
         #region PropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        } 
+        }
+
         #endregion
+
         #endregion
     }
 }

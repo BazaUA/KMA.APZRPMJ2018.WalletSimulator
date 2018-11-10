@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -92,20 +92,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Logger.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Managers\LoaderManager.cs" />
     <Compile Include="Managers\NavigationManager.cs" />
     <Compile Include="Managers\DBManager.cs" />
+    <Compile Include="Managers\SerializationManager.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Tools\Encrypting.cs" />
+    <Compile Include="Tools\FileFolderHelper.cs" />
     <Compile Include="Tools\IContentWindow.cs" />
+    <Compile Include="Tools\ILoaderOwner.cs" />
+    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\NavigationModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
-    <Compile Include="Tools\WordsCont.cs" />
+    <Compile Include="Tools\WordsCount.cs" />
     <Compile Include="ViewModels\Authentication\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RequestConfigurationViewModel.cs" />
     <Compile Include="Views\Authentication\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
@@ -191,9 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="log4net.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

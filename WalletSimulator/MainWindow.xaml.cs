@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
-using log4net;
+using KMA.APZRPMJ2018.RequestSimulator.ViewModels;
 
 namespace KMA.APZRPMJ2018.RequestSimulator
 {
@@ -14,11 +14,13 @@ namespace KMA.APZRPMJ2018.RequestSimulator
     
         public MainWindow()
         {
-            Logger.InitLogger();    
             InitializeComponent();
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            DataContext = mainWindowViewModel;
+            mainWindowViewModel.StartApplication();
             var navigationModel = new NavigationModel(this);
             NavigationManager.Instance.Initialize(navigationModel);
-            navigationModel.Navigate(ModesEnum.SignIn);
+
         }
 
         public ContentControl ContentControl

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
-using KMA.APZRPMJ2018.WalletSimulator.Tools;
+using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Models
 {
+    [Serializable]
     public class User
     {
         #region Const
@@ -58,21 +59,31 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
 
         private void SetPassword(string password)
         {
-            Password = Encrypting.Encrypt(password, PrivateKey);
+            Password = Encrypting.Encrypt(password, PrivateKey).Result;
         }
         public bool CheckPassword(string password)
         {
             try
             {
                 var res = Encrypting.Decrypt(Password, PrivateKey);
-                return res == password;
+                return res.Result.Equals(password);
             }
             catch (Exception)
             {
                 return false;
             }
         }
-        
+        public bool CheckPassword(User userCandidate)
+        {
+            try
+            {
+                return Password.Equals(userCandidate.Password);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public override string ToString()
         {
             return $"{LastName} {FirstName}";

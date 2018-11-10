@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
@@ -13,17 +15,22 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
     internal class SignInViewModel : INotifyPropertyChanged
     {
         #region Fields
+
         private string _password;
         private string _login;
-        
+
         #region Commands
+
         private ICommand _closeCommand;
         private ICommand _signInCommand;
         private ICommand _signUpCommand;
+
         #endregion
+
         #endregion
 
         #region Properties
+
         public string Password
         {
             get { return _password; }
@@ -33,6 +40,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 OnPropertyChanged();
             }
         }
+
         public string Login
         {
             get { return _login; }
@@ -42,14 +50,12 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 OnPropertyChanged();
             }
         }
+
         #region Commands
 
         public ICommand CloseCommand
         {
-            get
-            {
-                return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseExecute));
-            }
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand<object>(CloseExecute)); }
         }
 
         public ICommand SignInCommand
@@ -62,64 +68,82 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         public ICommand SignUpCommand
         {
-            get
-            {
-                return _signUpCommand ?? (_signUpCommand = new RelayCommand<object>(SignUpExecute));
-            }
+            get { return _signUpCommand ?? (_signUpCommand = new RelayCommand<object>(SignUpExecute)); }
         }
 
         #endregion
+
         #endregion
 
         #region ConstructorAndInit
+
         internal SignInViewModel()
         {
         }
+
         #endregion
 
-        private void SignUpExecute(object obj)
+        private async void SignUpExecute(object obj)
         {
-            Logger.Log.Info("Sign Up execute");
+            var result = await Task.Run(() =>
+            {
+                
+                
+                return true;
+            });
+            if(result){
+            Logger.Log("SignUpExecute in SignIn");
             NavigationManager.Instance.Navigate(ModesEnum.SingUp);
+            }
         }
 
-        private void SignInExecute(object obj)
+        private async void SignInExecute(object obj)
         {
-            Logger.Log.Info("Sign In Execute");
+            Logger.Log("SignInExecute in SignIn");
 
-            User currentUser;
-            try
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
             {
-                currentUser = DBManager.GetUserByLogin(_login);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
-                    ex.Message));
-                return;
-            }
-            if (currentUser == null)
-            {
-                MessageBox.Show(string.Format(Resources.SignIn_UserDoesntExist, _login));
-                return;
-            }
-            try
-            {
-                if (!currentUser.CheckPassword(_password))
+
+                User currentUser;
+                try
                 {
-                    MessageBox.Show(Resources.SignIn_WrongPassword);
-                    return;
+                    currentUser = DBManager.GetUserByLogin(_login).Result;
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log.Error("Exception when user SignIn",ex);
-                MessageBox.Show(string.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
-                    ex.Message));
-                return;
-            }
-            StationManager.CurrentUser = currentUser;
-            NavigationManager.Instance.Navigate(ModesEnum.Main);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
+                        ex.Message));
+                    return false;
+                }
+
+                if (currentUser == null)
+                {
+                    MessageBox.Show(String.Format(Resources.SignIn_UserDoesntExist, _login));
+                    return false;
+                }
+
+                try
+                {
+                    if (!currentUser.CheckPassword(_password))
+                    {
+                        MessageBox.Show(Resources.SignIn_WrongPassword);
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
+                        ex.Message));
+                    return false;
+                }
+
+                StationManager.CurrentUser = currentUser;
+                return true;
+            });
+            LoaderManager.Instance.HideLoader();
+            if (result)
+                NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
 
         private bool SignInCanExecute(object obj)
@@ -127,21 +151,37 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             return !string.IsNullOrWhiteSpace(_login) && !string.IsNullOrWhiteSpace(_password);
         }
 
-        private void CloseExecute(object obj)
+        private async void CloseExecute(object obj)
         {
-            Logger.Log.Info("Close App");
-            StationManager.CloseApp();
+            LoaderManager.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                
+                
+                return true;
+            });
+            if (result)
+            {
+                Logger.Log("Close App");
+                LoaderManager.Instance.HideLoader();
+                StationManager.CloseApp();
+            }
         }
 
         #region EventsAndHandlers
+
         #region PropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         [NotifyPropertyChangedInvocator]
         internal virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        } 
+        }
+
         #endregion
+
         #endregion
     }
 }

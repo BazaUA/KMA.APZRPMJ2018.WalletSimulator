@@ -1,4 +1,5 @@
-﻿using KMA.APZRPMJ2018.RequestSimulator.Tools;
+﻿using System.Threading.Tasks;
+using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Managers
 {
@@ -53,10 +54,17 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Managers
         /// This method performs switch betwean different controls
         /// </summary>
         /// <param name="mode">Enum value of corresponding control</param>
-        internal void Navigate(ModesEnum mode)
+        internal async void Navigate(ModesEnum mode)
         {
             //If _navigationModel is null, nothing will happen
-            _navigationModel?.Navigate(mode);
+            var result = await Task.Run(() => { return true; });
+            if (result)
+            {
+                Logger.Log("Navigated in NavigationManager");
+                 _navigationModel?.Navigate(mode);
+            }
+
+            
         }
 
     }

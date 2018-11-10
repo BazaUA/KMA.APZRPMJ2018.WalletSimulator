@@ -5,13 +5,13 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 {
     
 
-    public class WordsCont 
+    public class WordsCount 
     {
         private readonly string _text;
 
-        public WordsCont(string text)
+        public WordsCount(string text)
         {
-            this._text = text;
+            _text = text;
             Init();
         }
 

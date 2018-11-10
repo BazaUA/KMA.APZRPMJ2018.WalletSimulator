@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
@@ -29,7 +30,6 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         #endregion
 
         #region Properties
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region Commands
 
         public ICommand AddRequestCommand => _addRequestCommand ?? (_addRequestCommand = new RelayCommand<object>(AddRequestExecute));
@@ -71,14 +71,15 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         private void FillRequests()
         {
             Requests = new ObservableCollection<Request>();
-            foreach (var Request in StationManager.CurrentUser.Requests)
+            foreach (var request in StationManager.CurrentUser.Requests)
             {
-                Requests.Add(Request);
+                Requests.Add(request);
             }
         }
 
         private void AddRequestExecute(object o)
         {
+            LoaderManager.Instance.ShowLoader();
             // Create OpenFileDialog 
             var dlg = new Microsoft.Win32.OpenFileDialog {DefaultExt = ".txt", Filter = "Text|*.txt"};
 
@@ -96,7 +97,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 {
                     var filename = dlg.FileName;
                     var text = File.ReadAllText(filename);
-                    var wordsCont = new WordsCont(text);
+                    var wordsCont = new WordsCount(text);
 
                     var request = new Request(
                         filename,
@@ -106,20 +107,34 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                         StationManager.CurrentUser);
                     Requests.Add(request);
                     _selectedRequest = request;
-                    Logger.Log.Info("Request executed");
+                    Logger.Log("Request executed");
                 }
                 catch (Exception e)
                 {
-                    Logger.Log.Error("Failed request",e);
+                    Logger.Log("Failed request",e);
                     MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine, e.Message));
                 }
             }
+            LoaderManager.Instance.HideLoader();
         }
 
-        private void LogOutExecute(object o)
+        private async void LogOutExecute(object o)
         {
-            Logger.Log.Info("Log out");
-            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+            LoaderManager.Instance.ShowLoader();
+           var  result = await Task.Run(() =>
+            {
+                
+                
+                return true;
+            });
+            if (result)
+            {
+                Logger.Log("Log out");
+                LoaderManager.Instance.HideLoader();
+                NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+                StationManager.CurrentUser = null;
+            }
+           
         }
 
         #region EventsAndHandlers
@@ -128,11 +143,11 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 
         internal event RequestChangedHandler RequestChanged;
 
-        internal delegate void RequestChangedHandler(Request Request);
+        internal delegate void RequestChangedHandler(Request request);
 
-        internal virtual void OnRequestChanged(Request Request)
+        internal virtual void OnRequestChanged(Request request)
         {
-            RequestChanged?.Invoke(Request);
+            RequestChanged?.Invoke(request);
         }
 
         #endregion
