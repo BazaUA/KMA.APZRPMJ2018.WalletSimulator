@@ -13,7 +13,6 @@ using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 {
-    
     class MainViewViewModel : INotifyPropertyChanged
     {
         #region Fields
@@ -30,9 +29,11 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
         #endregion
 
         #region Properties
+
         #region Commands
 
-        public ICommand AddRequestCommand => _addRequestCommand ?? (_addRequestCommand = new RelayCommand<object>(AddRequestExecute));
+        public ICommand AddRequestCommand =>
+            _addRequestCommand ?? (_addRequestCommand = new RelayCommand<object>(AddRequestExecute));
 
         public ICommand LogOut => _logout ?? (_logout = new RelayCommand<object>(LogOutExecute));
 
@@ -111,22 +112,19 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 }
                 catch (Exception e)
                 {
-                    Logger.Log("Failed request",e);
+                    LoaderManager.Instance.HideLoader();
+                    Logger.Log("Failed request", e);
                     MessageBox.Show(string.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine, e.Message));
                 }
             }
+
             LoaderManager.Instance.HideLoader();
         }
 
         private async void LogOutExecute(object o)
         {
             LoaderManager.Instance.ShowLoader();
-           var  result = await Task.Run(() =>
-            {
-                
-                
-                return true;
-            });
+            var result = await Task.Run(() => { return true; });
             if (result)
             {
                 Logger.Log("Log out");
@@ -134,7 +132,6 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 NavigationManager.Instance.Navigate(ModesEnum.SignIn);
                 StationManager.CurrentUser = null;
             }
-           
         }
 
         #region EventsAndHandlers

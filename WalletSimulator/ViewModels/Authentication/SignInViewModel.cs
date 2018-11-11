@@ -85,15 +85,11 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         private async void SignUpExecute(object obj)
         {
-            var result = await Task.Run(() =>
+            var result = await Task.Run(() => { return true; });
+            if (result)
             {
-                
-                
-                return true;
-            });
-            if(result){
-            Logger.Log("SignUpExecute in SignIn");
-            NavigationManager.Instance.Navigate(ModesEnum.SingUp);
+                Logger.Log("SignUpExecute in SignIn");
+                NavigationManager.Instance.Navigate(ModesEnum.SingUp);
             }
         }
 
@@ -104,7 +100,6 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             LoaderManager.Instance.ShowLoader();
             var result = await Task.Run(() =>
             {
-
                 User currentUser;
                 try
                 {
@@ -112,6 +107,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 }
                 catch (Exception ex)
                 {
+                    LoaderManager.Instance.HideLoader();
+
                     MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
                         ex.Message));
                     return false;
@@ -119,6 +116,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
                 if (currentUser == null)
                 {
+                    LoaderManager.Instance.HideLoader();
+
                     MessageBox.Show(String.Format(Resources.SignIn_UserDoesntExist, _login));
                     return false;
                 }
@@ -127,23 +126,31 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 {
                     if (!currentUser.CheckPassword(_password))
                     {
+                        LoaderManager.Instance.HideLoader();
                         MessageBox.Show(Resources.SignIn_WrongPassword);
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
+                    LoaderManager.Instance.HideLoader();
+
                     MessageBox.Show(String.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
                         ex.Message));
                     return false;
                 }
 
                 StationManager.CurrentUser = currentUser;
+                LoaderManager.Instance.HideLoader();
+
                 return true;
             });
-            LoaderManager.Instance.HideLoader();
             if (result)
+            {
                 NavigationManager.Instance.Navigate(ModesEnum.Main);
+            }
+
+            LoaderManager.Instance.HideLoader();
         }
 
         private bool SignInCanExecute(object obj)
@@ -154,12 +161,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
         private async void CloseExecute(object obj)
         {
             LoaderManager.Instance.ShowLoader();
-            var result = await Task.Run(() =>
-            {
-                
-                
-                return true;
-            });
+            var result = await Task.Run(() => { return true; });
             if (result)
             {
                 Logger.Log("Close App");

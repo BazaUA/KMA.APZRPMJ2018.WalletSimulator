@@ -1,9 +1,9 @@
-﻿    using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System.Threading.Tasks;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
@@ -126,18 +126,21 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 {
                     if (!new EmailAddressAttribute().IsValid(_email))
                     {
+                        LoaderManager.Instance.HideLoader();
                         MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
                         return false;
                     }
 
                     if (DBManager.UserExists(_login))
                     {
+                        LoaderManager.Instance.HideLoader();
                         MessageBox.Show(String.Format(Resources.SignUp_UserAlreadyExists, _login));
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
+                    LoaderManager.Instance.HideLoader();
                     MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
                         ex.Message));
                     return false;
@@ -151,10 +154,14 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 }
                 catch (Exception ex)
                 {
+                    LoaderManager.Instance.HideLoader();
+
                     MessageBox.Show(String.Format(Resources.SignUp_FailedToCreateUser, Environment.NewLine,
                         ex.Message));
                     return false;
                 }
+
+                LoaderManager.Instance.HideLoader();
 
                 MessageBox.Show(String.Format(Resources.SignUp_UserSuccessfulyCreated, _login));
                 return true;
@@ -175,28 +182,18 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         private async void SignInExecute(object obj)
         {
-            var result = await Task.Run(() =>
-            {
-               
-                return true;
-            });
+            var result = await Task.Run(() => { return true; });
 
             if (result)
             {
                 NavigationManager.Instance.Navigate(ModesEnum.SignIn);
             }
-
         }
 
         private async void CloseExecute(object obj)
         {
             LoaderManager.Instance.ShowLoader();
-            var result = await Task.Run(() =>
-            {
-                
-                
-                return true;
-            });
+            var result = await Task.Run(() => { return true; });
             if (result)
             {
                 Logger.Log("Exited from app from SingUpViewModel");
