@@ -10,7 +10,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
 {
     public class MainWindowViewModel : ILoaderOwner
     {
-        private Visibility _visibility = Visibility.Hidden;
+        private Visibility _visibility = Visibility.Collapsed;
         private bool _isEnabled = true;
 
         public Visibility LoaderVisibility

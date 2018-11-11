@@ -40,7 +40,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Managers
 
         internal void HideLoader()
         {
-            _loaderOwner.LoaderVisibility = Visibility.Hidden;
+            _loaderOwner.LoaderVisibility = Visibility.Collapsed;
             _loaderOwner.IsEnabled = true;
         }
     }
