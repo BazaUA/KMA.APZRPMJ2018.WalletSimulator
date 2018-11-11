@@ -18,7 +18,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Managers
             Users = SerializationManager.Deserialize<List<User>>(FileFolderHelper.StorageFilePath) ?? new List<User>();
         }
 
-        private static async void SaveUsers()
+        public static async void SaveUsers()
         {
             var result = await Task.Run(() => { return true; });
             if (result)
@@ -35,8 +35,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Managers
 
         public static async Task<User> GetUserByLogin(string login)
         {
-            return await Task.Run(() => { return Users.FirstOrDefault(u => u.Login == login); });
-        }
+            return await Task.Run(() => { return Users.FirstOrDefault(u => u.Login.Equals(login)); });
+        }    
 
         public static async void AddUser(User user)
         {

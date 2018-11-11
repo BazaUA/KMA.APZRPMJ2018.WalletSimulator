@@ -107,6 +107,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                         wordsCont.NumberOfLines,
                         StationManager.CurrentUser);
                     Requests.Add(request);
+                    DBManager.SaveUsers();
                     _selectedRequest = request;
                     Logger.Log("Request executed");
                 }
