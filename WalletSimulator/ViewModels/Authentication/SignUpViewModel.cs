@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -126,6 +125,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 {
                     if (!new EmailAddressAttribute().IsValid(_email))
                     {
+                        Logger.Log("User email is not valid");
+
                         LoaderManager.Instance.HideLoader();
                         MessageBox.Show(String.Format(Resources.SignUp_EmailIsNotValid, _email));
                         return false;
@@ -133,6 +134,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
                     if (DBManager.UserExists(_login))
                     {
+                        Logger.Log("User with such login already exists");
+
                         LoaderManager.Instance.HideLoader();
                         MessageBox.Show(String.Format(Resources.SignUp_UserAlreadyExists, _login));
                         return false;
@@ -140,6 +143,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 }
                 catch (Exception ex)
                 {
+                    Logger.Log("Exception when sign up user",ex);
+
                     LoaderManager.Instance.HideLoader();
                     MessageBox.Show(String.Format(Resources.SignUp_FailedToValidateData, Environment.NewLine,
                         ex.Message));
@@ -149,12 +154,14 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 try
                 {
                     var user = new User(_firstName, _lastName, _email, _login, _password);
+                    Logger.Log("User added to storage");
                     DBManager.AddUser(user);
                     StationManager.CurrentUser = user;
                 }
                 catch (Exception ex)
                 {
                     LoaderManager.Instance.HideLoader();
+                    Logger.Log("Exception when user saved to storage",ex);
 
                     MessageBox.Show(String.Format(Resources.SignUp_FailedToCreateUser, Environment.NewLine,
                         ex.Message));

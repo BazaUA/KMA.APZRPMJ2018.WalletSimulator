@@ -21,7 +21,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
                 }
                 catch
                 {
-                    Logger.Log("Error during logging");
+                    Log("Error during logging");
                 }
                 finally
                 {

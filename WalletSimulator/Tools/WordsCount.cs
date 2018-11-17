@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 {

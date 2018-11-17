@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
@@ -100,7 +99,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                     var filename = dlg.FileName;
                     StreamReader file = new StreamReader(filename);
                     StringBuilder stringBuilder = new StringBuilder();
-                    string line=String.Empty;
+                    string line = String.Empty;
                     while ((line = file.ReadLine()) != null)
                     {
                         stringBuilder.AppendLine(line);

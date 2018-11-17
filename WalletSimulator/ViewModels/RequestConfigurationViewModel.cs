@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
 using KMA.APZRPMJ2018.RequestSimulator.Models;

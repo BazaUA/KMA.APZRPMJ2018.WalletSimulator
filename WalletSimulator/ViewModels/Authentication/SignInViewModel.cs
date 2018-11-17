@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -104,7 +103,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 catch (Exception ex)
                 {
                     LoaderManager.Instance.HideLoader();
-
+                    Logger.Log("Failed to get user");
                     MessageBox.Show(String.Format(Resources.SignIn_FailedToGetUser, Environment.NewLine,
                         ex.Message));
                     return false;
@@ -113,6 +112,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 if (currentUser == null)
                 {
                     LoaderManager.Instance.HideLoader();
+                    Logger.Log("Failed to get user because such user doesn't exist");
 
                     MessageBox.Show(String.Format(Resources.SignIn_UserDoesntExist, _login));
                     return false;
@@ -121,7 +121,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 try
                 {
                     if (!currentUser.CheckPassword(_password))
-                    {
+                    {                    
+                        Logger.Log("Incorrect password");
                         LoaderManager.Instance.HideLoader();
                         MessageBox.Show(Resources.SignIn_WrongPassword);
                         return false;
@@ -130,7 +131,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 catch (Exception ex)
                 {
                     LoaderManager.Instance.HideLoader();
-
+                    Logger.Log("Exception when checking password",ex);
                     MessageBox.Show(String.Format(Resources.SignIn_FailedToValidatePassword, Environment.NewLine,
                         ex.Message));
                     return false;
@@ -143,6 +144,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             });
             if (result)
             {
+                Logger.Log("User signed in successfully");
                 NavigationManager.Instance.Navigate(ModesEnum.Main);
             }
 

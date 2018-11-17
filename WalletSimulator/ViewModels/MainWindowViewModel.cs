@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
 using KMA.APZRPMJ2018.RequestSimulator.Properties;

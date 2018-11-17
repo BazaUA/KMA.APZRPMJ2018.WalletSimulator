@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using KMA.APZRPMJ2018.RequestSimulator.Models;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
