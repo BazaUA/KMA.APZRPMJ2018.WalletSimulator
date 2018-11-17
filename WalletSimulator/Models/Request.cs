@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.ModelConfiguration;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Models
 {
@@ -21,6 +22,10 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
         public long NumberOfStrings { get; private set; }
 
         public DateTime DateRequest { get; private set; }
+        
+        public User User { get; private set; }
+        
+        public Guid UserGuid { get; private set; }
 
         #endregion
 
@@ -34,6 +39,9 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
             NumberOfStrings = numberOfLines;
             DateRequest = DateTime.Now;
             user.Requests.Add(this);
+            User = user;
+            UserGuid = user.Guid;
+
         }
         private Request()
         {
@@ -43,5 +51,41 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
         {
             return Path;
         }
+        
+        public class RequestEntityConfiguration : EntityTypeConfiguration<Request>
+        {
+            public RequestEntityConfiguration()
+            {
+                ToTable("Requests");
+                HasKey(s => s.Guid);
+
+                Property(p => p.Guid)
+                    .HasColumnName("Guid")
+                    .IsRequired();
+                Property(p => p.Path)
+                    .HasColumnName("Path")
+                    .IsRequired();
+                Property(s => s.NumberOfChars)
+                    .HasColumnName("NumberOfChars")
+                    .IsRequired();
+                Property(s => s.NumberOfWords)
+                    .HasColumnName("NumberOfWords")
+                    .IsRequired();
+                Property(s => s.NumberOfStrings)
+                    .HasColumnName("NumberOfStrings")
+                    .IsRequired();
+                Property(s => s.DateRequest)
+                    .HasColumnName("DateRequest")
+                    .IsRequired();
+                
+               
+            }
+        }
+        
+        public void DeleteDatabaseValues()
+        {
+            User = null;
+        }
+        
     }   
 }

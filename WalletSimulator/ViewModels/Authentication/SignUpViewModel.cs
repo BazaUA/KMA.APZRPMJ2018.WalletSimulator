@@ -180,26 +180,19 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                    !string.IsNullOrWhiteSpace(_email);
         }
 
-        private async void SignInExecute(object obj)
+        private void SignInExecute(object obj)
         {
-            var result = await Task.Run(() => { return true; });
-
-            if (result)
-            {
-                NavigationManager.Instance.Navigate(ModesEnum.SignIn);
-            }
+            NavigationManager.Instance.Navigate(ModesEnum.SignIn);   
         }
 
-        private async void CloseExecute(object obj)
+        private void CloseExecute(object obj)
         {
             LoaderManager.Instance.ShowLoader();
-            var result = await Task.Run(() => { return true; });
-            if (result)
-            {
-                Logger.Log("Exited from app from SingUpViewModel");
-                LoaderManager.Instance.HideLoader();
-                StationManager.CloseApp();
-            }
+           
+            Logger.Log("Exited from app from SingUpViewModel");
+            LoaderManager.Instance.HideLoader();
+            StationManager.CloseApp();
+            
         }
 
         #region EventsAndHandlers

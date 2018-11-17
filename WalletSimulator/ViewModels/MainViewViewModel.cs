@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -97,9 +98,21 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 try
                 {
                     var filename = dlg.FileName;
-                    var text = File.ReadAllText(filename);
+                    StreamReader file = new StreamReader(filename);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string line=String.Empty;
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        stringBuilder.AppendLine(line);
+                    }
+                    // remove last two characters '\n' that added by AppendLine()
+                    if(stringBuilder.Length>0)
+                        stringBuilder.Length-=2;
+                    file.Close();
+                    
+                    string text = stringBuilder.ToString();
+                   
                     var wordsCont = new WordsCount(text);
-
                     var request = new Request(
                         filename,
                         wordsCont.NumberOfCharacters,
@@ -107,7 +120,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                         wordsCont.NumberOfLines,
                         StationManager.CurrentUser);
                     Requests.Add(request);
-                    DBManager.SaveUsers();
+                    DBManager.AddRequest(request);
                     _selectedRequest = request;
                     Logger.Log("Request executed");
                 }
@@ -122,17 +135,13 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
             LoaderManager.Instance.HideLoader();
         }
 
-        private async void LogOutExecute(object o)
+        private void LogOutExecute(object o)
         {
             LoaderManager.Instance.ShowLoader();
-            var result = await Task.Run(() => { return true; });
-            if (result)
-            {
-                Logger.Log("Log out");
-                LoaderManager.Instance.HideLoader();
-                NavigationManager.Instance.Navigate(ModesEnum.SignIn);
-                StationManager.CurrentUser = null;
-            }
+            Logger.Log("Log out");
+            LoaderManager.Instance.HideLoader();
+            NavigationManager.Instance.Navigate(ModesEnum.SignIn);
+            StationManager.CurrentUser = null;
         }
 
         #region EventsAndHandlers

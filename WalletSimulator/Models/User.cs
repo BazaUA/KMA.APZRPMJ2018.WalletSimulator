@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using KMA.APZRPMJ2018.RequestSimulator.Tools;
+using System.Data.Entity.ModelConfiguration;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Models
@@ -88,5 +88,45 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Models
         {
             return $"{LastName} {FirstName}";
         }
+        
+        public class UserEntityConfiguration : EntityTypeConfiguration<User>
+        {
+            public UserEntityConfiguration()
+            {
+                ToTable("Users");
+                HasKey(s => s.Guid);
+
+                Property(p => p.Guid)
+                    .HasColumnName("Guid")
+                    .IsRequired();
+                Property(p => p.FirstName)
+                    .HasColumnName("FirstName")
+                    .IsRequired();
+                Property(p => p.LastName)
+                    .HasColumnName("LastName")
+                    .IsRequired();
+                Property(p => p.Email)
+                    .HasColumnName("Email")
+                    .IsRequired();
+                Property(p => p.Login)
+                    .HasColumnName("Login")
+                    .IsRequired();
+                Property(p => p.Password)
+                    .HasColumnName("Password")
+                    .IsRequired();
+                Property(p => p.LastLoginDate)
+                    .HasColumnName("LastLoginDate")
+                    .IsRequired();
+
+                HasMany(s => s.Requests)
+                    .WithRequired(w => w.User)
+                    .HasForeignKey(w => w.UserGuid)
+                    .WillCascadeOnDelete(true);
+            }
+        }
+        
+        
     }
+    
+    
 }

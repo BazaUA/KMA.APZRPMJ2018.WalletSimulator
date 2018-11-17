@@ -26,14 +26,10 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Managers
             DeserializeLastUser();
         }
 
-        internal static async void CloseApp()
+        internal static void CloseApp()
         {
-            var result = await Task.Run(() => { return true; });
-            if (result)
-            {
-                MessageBox.Show("ShutDown");
-                Environment.Exit(1);
-            }
+            MessageBox.Show("ShutDown");
+            Environment.Exit(1);
         }
 
         private static void DeserializeLastUser()

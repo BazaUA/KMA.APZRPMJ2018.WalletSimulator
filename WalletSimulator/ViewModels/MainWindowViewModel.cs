@@ -38,22 +38,13 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
             LoaderManager.Instance.Initialize(this);
         }
 
-        internal async void StartApplication()
-        {
-            var result = await Task.Run(() =>
-            {
-                
-                
-                return true;
-            });
-            if (result)
-            {
-                
-                NavigationManager.Instance.Navigate(StationManager.CurrentUser != null
-                    ? ModesEnum.Main
-                    : ModesEnum.SignIn);
-            }
+        internal void StartApplication()
+        { 
+            NavigationManager.Instance.Navigate(StationManager.CurrentUser != null
+                ? ModesEnum.Main
+                : ModesEnum.SignIn);
         }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 

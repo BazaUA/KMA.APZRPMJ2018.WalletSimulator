@@ -83,14 +83,10 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
 
         #endregion
 
-        private async void SignUpExecute(object obj)
+        private void SignUpExecute(object obj)
         {
-            var result = await Task.Run(() => { return true; });
-            if (result)
-            {
-                Logger.Log("SignUpExecute in SignIn");
-                NavigationManager.Instance.Navigate(ModesEnum.SingUp);
-            }
+            Logger.Log("SignUpExecute in SignIn");
+            NavigationManager.Instance.Navigate(ModesEnum.SingUp);
         }
 
         private async void SignInExecute(object obj)
@@ -158,16 +154,12 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
             return !string.IsNullOrWhiteSpace(_login) && !string.IsNullOrWhiteSpace(_password);
         }
 
-        private async void CloseExecute(object obj)
+        private void CloseExecute(object obj)
         {
             LoaderManager.Instance.ShowLoader();
-            var result = await Task.Run(() => { return true; });
-            if (result)
-            {
-                Logger.Log("Close App");
-                LoaderManager.Instance.HideLoader();
-                StationManager.CloseApp();
-            }
+            Logger.Log("Close App");
+            LoaderManager.Instance.HideLoader();
+            StationManager.CloseApp();
         }
 
         #region EventsAndHandlers
