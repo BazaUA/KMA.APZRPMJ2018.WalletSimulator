@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
-using KMA.APZRPMJ2018.RequestSimulator.Models;
+using KMA.APZRPMJ2018.RequestSimulator.DBModels;
 using KMA.APZRPMJ2018.RequestSimulator.Properties;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
 

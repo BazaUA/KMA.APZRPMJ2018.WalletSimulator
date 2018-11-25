@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 {
     public static class Encrypting

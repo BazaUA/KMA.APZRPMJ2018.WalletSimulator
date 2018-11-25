@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using KMA.APZRPMJ2018.RequestSimulator.Models;
+using KMA.APZRPMJ2018.RequestSimulator.DBModels;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Managers
@@ -25,9 +25,8 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Managers
             DeserializeLastUser();
         }
 
-        internal static void CloseApp()
+        public static void CloseApp()
         {
-            MessageBox.Show("ShutDown");
             Environment.Exit(1);
         }
 

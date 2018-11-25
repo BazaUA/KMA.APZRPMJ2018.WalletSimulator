@@ -7,7 +7,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Views.Request
     /// </summary>
     public partial class RequestConfigurationView
     {
-        public RequestConfigurationView(Models.Request request)
+        public RequestConfigurationView(DBModels.Request request)
         {
             InitializeComponent();
             var requestModel = new RequestConfigurationViewModel(request);

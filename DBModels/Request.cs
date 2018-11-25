@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity.ModelConfiguration;
 
-namespace KMA.APZRPMJ2018.RequestSimulator.Models
+namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
 {
     [Serializable]
     public class Request

@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using KMA.APZRPMJ2018.RequestSimulator.Models;
-
-namespace KMA.APZRPMJ2018.RequestSimulator.Data
+using KMA.APZRPMJ2018.RequestSimulator.DBModels;
+namespace KMA.APZRPMJ2018.RequestSimulator.DBAdapter
 {
     public class EntityWrapper
     {

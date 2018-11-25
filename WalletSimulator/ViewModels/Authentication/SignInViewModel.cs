@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using KMA.APZRPMJ2018.RequestSimulator.Managers;
-using KMA.APZRPMJ2018.RequestSimulator.Models;
+using KMA.APZRPMJ2018.RequestSimulator.DBModels;
 using KMA.APZRPMJ2018.RequestSimulator.Properties;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
@@ -113,7 +113,6 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels.Authentication
                 {
                     LoaderManager.Instance.HideLoader();
                     Logger.Log("Failed to get user because such user doesn't exist");
-
                     MessageBox.Show(String.Format(Resources.SignIn_UserDoesntExist, _login));
                     return false;
                 }

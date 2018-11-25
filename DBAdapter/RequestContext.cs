@@ -1,8 +1,8 @@
 using System.Data.Entity;
-using KMA.APZRPMJ2018.RequestSimulator.Migrations;
-using KMA.APZRPMJ2018.RequestSimulator.Models;
+using KMA.APZRPMJ2018.RequestSimulator.DBAdapter.Migrations;
+using KMA.APZRPMJ2018.RequestSimulator.DBModels;
 
-namespace KMA.APZRPMJ2018.RequestSimulator.Data
+namespace KMA.APZRPMJ2018.RequestSimulator.DBAdapter
 {
     public class RequestContext : DbContext
     {

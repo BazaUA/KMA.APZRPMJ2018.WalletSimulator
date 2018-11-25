@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>KMA.APZRPMJ2018.RequestSimulator</RootNamespace>
     <AssemblyName>RequestSimulator</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -100,27 +100,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\EntityWrapper.cs" />
-    <Compile Include="Data\RequestContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Managers\LoaderManager.cs" />
     <Compile Include="Managers\NavigationManager.cs" />
-    <Compile Include="Managers\DBManager.cs" />
-    <Compile Include="Managers\SerializationManager.cs" />
-    <Compile Include="Migrations\201811171559570_InitialCreate.cs" />
-    <Compile Include="Migrations\201811171559570_InitialCreate.Designer.cs">
-      <DependentUpon>201811171559570_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Tools\Encrypting.cs" />
-    <Compile Include="Tools\FileFolderHelper.cs" />
     <Compile Include="Tools\IContentWindow.cs" />
     <Compile Include="Tools\ILoaderOwner.cs" />
-    <Compile Include="Tools\Logger.cs" />
     <Compile Include="Tools\NavigationModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\WordsCount.cs" />
@@ -135,7 +121,6 @@
     </Compile>
     <Compile Include="Tools\PasswordBoxAssistant.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Managers\StationManager.cs" />
     <Compile Include="ViewModels\Authentication\SignInViewModel.cs" />
     <Compile Include="Tools\Controls\LabelAndTextControl.xaml.cs">
       <DependentUpon>LabelAndTextControl.xaml</DependentUpon>
@@ -198,9 +183,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201811171559570_InitialCreate.resx">
-      <DependentUpon>201811171559570_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.ua.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -217,7 +199,28 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DBModels\DBModels.csproj">
+      <Project>{d69c52b9-8c15-42b0-834d-a5fe1eb74e69}</Project>
+      <Name>DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Managers\Managers.csproj">
+      <Project>{d4b4086b-708a-4b47-a441-95e46e5c55ba}</Project>
+      <Name>Managers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RequestServiceInterface\RequestServiceInterface.csproj">
+      <Project>{c8309b77-17f4-4816-b800-6e3fcac618f3}</Project>
+      <Name>RequestServiceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RequestService\RequestService.csproj">
+      <Project>{fe362fc3-b76c-40a9-8dcf-adef50d4e7c9}</Project>
+      <Name>RequestService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{860ebd1f-7872-4d13-b8d1-6e0ae0ee28ef}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

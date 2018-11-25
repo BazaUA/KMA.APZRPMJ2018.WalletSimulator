@@ -27,7 +27,7 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Views
             DataContext = _mainWindowViewModel;
         }
 
-        private void OnRequestChanged(Models.Request request)
+        private void OnRequestChanged(DBModels.Request request)
         {
             if (_currentRequestConfigurationView == null)
             {
