@@ -44,10 +44,6 @@
     <Compile Include="StationManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBAdapter\DBAdapter.csproj">
-      <Project>{84a0f68c-9f8e-4ce2-88c3-3ecf3ea67b7b}</Project>
-      <Name>DBAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DBModels\DBModels.csproj">
       <Project>{d69c52b9-8c15-42b0-834d-a5fe1eb74e69}</Project>
       <Name>DBModels</Name>

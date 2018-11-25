@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using KMA.APZRPMJ2018.RequestSimulator.DBAdapter;
 using KMA.APZRPMJ2018.RequestSimulator.DBModels;
 using KMA.APZRPMJ2018.RequestSimulator.RequestServiceInterface;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;

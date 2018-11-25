@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <HintPath>..\DBAdapter\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
@@ -207,14 +210,6 @@
     <ProjectReference Include="..\Managers\Managers.csproj">
       <Project>{d4b4086b-708a-4b47-a441-95e46e5c55ba}</Project>
       <Name>Managers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RequestServiceInterface\RequestServiceInterface.csproj">
-      <Project>{c8309b77-17f4-4816-b800-6e3fcac618f3}</Project>
-      <Name>RequestServiceInterface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RequestService\RequestService.csproj">
-      <Project>{fe362fc3-b76c-40a9-8dcf-adef50d4e7c9}</Project>
-      <Name>RequestService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tools\Tools.csproj">
       <Project>{860ebd1f-7872-4d13-b8d1-6e0ae0ee28ef}</Project>
