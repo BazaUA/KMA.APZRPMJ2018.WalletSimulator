@@ -2,23 +2,16 @@
 
 namespace KMA.APZRPMJ2018.RequestSimulator.Tools
 {
-    
 
-    public class WordsCount 
+
+    public class WordsCount
     {
-        private readonly string _text;
 
-        public WordsCount(string text)
+        public WordsCount()
         {
-            _text = text;
-            Init();
-        }
-
-        private void Init()
-        {
-            NumberOfLines = _text.Split('\n').Length;
-            NumberOfWords = Regex.Matches(_text, @"\b\w+\b").Count;
-            NumberOfCharacters = _text.Length;
+            NumberOfLines = 0;
+            NumberOfWords = 0;
+            NumberOfCharacters = 0;
         }
 
         public long NumberOfWords { get; private set; }
@@ -26,5 +19,12 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
         public long NumberOfLines { get; private set; }
 
         public long NumberOfCharacters { get; private set; }
+
+        public void LineProcessing(string line)
+        {
+            NumberOfLines += line.Split('\n').Length;
+            NumberOfWords += Regex.Matches(line, @"\b\w+\b").Count;
+            NumberOfCharacters += line.Length;
+        }
     }
 }

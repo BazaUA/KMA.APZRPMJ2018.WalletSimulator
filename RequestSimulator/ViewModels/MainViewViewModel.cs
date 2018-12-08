@@ -98,20 +98,15 @@ namespace KMA.APZRPMJ2018.RequestSimulator.ViewModels
                 {
                     var filename = dlg.FileName;
                     StreamReader file = new StreamReader(filename);
-                    StringBuilder stringBuilder = new StringBuilder();
                     string line = String.Empty;
+                    var wordsCont = new WordsCount();
                     while ((line = file.ReadLine()) != null)
                     {
-                        stringBuilder.AppendLine(line);
+                        wordsCont.LineProcessing(line);
                     }
-                    // remove last two characters '\n' that added by AppendLine()
-                    if(stringBuilder.Length>0)
-                        stringBuilder.Length-=2;
-                    file.Close();
                     
-                    string text = stringBuilder.ToString();
+                    file.Close();
                    
-                    var wordsCont = new WordsCount(text);
                     var request = new Request(
                         filename,
                         wordsCont.NumberOfCharacters,
