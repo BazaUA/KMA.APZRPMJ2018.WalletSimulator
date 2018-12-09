@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
 {
+    [Serializable]
     [DataContract(IsReference = true)]
     public class Request
     {

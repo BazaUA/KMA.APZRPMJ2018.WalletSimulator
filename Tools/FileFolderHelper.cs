@@ -18,10 +18,10 @@ namespace KMA.APZRPMJ2018.RequestSimulator.Tools
             "App_" + DateTime.Now.ToString("yyyy-MM-dd") + ".log");
 
         public static readonly string StorageFilePath =
-            Path.Combine(ClientFolderPath, "Storage.walsim");
+            Path.Combine(ClientFolderPath, "Storage.reqsim");
 
         public static readonly string LastUserFilePath =
-            Path.Combine(ClientFolderPath, "LastUser.walsim");
+            Path.Combine(ClientFolderPath, "LastUser.reqsim");
 
         public static void CheckAndCreateFile(string filePath)
         {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
-using System.Data.Entity.ModelConfiguration;
 using System.Runtime.Serialization;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
