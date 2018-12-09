@@ -1,36 +1,29 @@
 ﻿using System;
 using System.Data.Entity.ModelConfiguration;
+using System.Runtime.Serialization;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
 {
-    [Serializable]
+    [DataContract(IsReference = true)]
     public class Request
     {
-        #region Fields
-
-        #endregion
-
         #region Properties
-        public Guid Guid { get; private set; }
 
-        public string Path { get; set; }
-
-        public long NumberOfChars { get; private set; }
-
-        public long NumberOfWords { get; private set; }
-
-        public long NumberOfStrings { get; private set; }
-
-        public DateTime DateRequest { get; private set; }
-        
-        public User User { get; private set; }
-        
-        public Guid UserGuid { get; private set; }
+        [DataMember] public Guid Guid { get; private set; }
+        [DataMember] public string Path { get; set; }
+        [DataMember] public long NumberOfChars { get; private set; }
+        [DataMember] public long NumberOfWords { get; private set; }
+        [DataMember] public long NumberOfStrings { get; private set; }
+        [DataMember] public DateTime DateRequest { get; private set; }
+        [DataMember] public User User { get; private set; }
+        [DataMember] public Guid UserGuid { get; private set; }
 
         #endregion
 
         #region Constructor
-        public Request(string title, long numberOfCharacters, long numberOfWords, long numberOfLines, User user) : this()
+
+        public Request(string title, long numberOfCharacters, long numberOfWords, long numberOfLines,
+            User user) : this()
         {
             Guid = Guid.NewGuid();
             Path = title;
@@ -41,17 +34,19 @@ namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
             user.Requests.Add(this);
             User = user;
             UserGuid = user.Guid;
-
         }
+
         private Request()
         {
         }
+
         #endregion
+
         public override string ToString()
         {
             return Path;
         }
-        
+
         public class RequestEntityConfiguration : EntityTypeConfiguration<Request>
         {
             public RequestEntityConfiguration()
@@ -77,15 +72,12 @@ namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
                 Property(s => s.DateRequest)
                     .HasColumnName("DateRequest")
                     .IsRequired();
-                
-               
             }
         }
-        
+
         public void DeleteDatabaseValues()
         {
             User = null;
         }
-        
-    }   
+    }
 }

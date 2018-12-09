@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
+using System.Data.Entity.ModelConfiguration;
+using System.Runtime.Serialization;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
 {
     [Serializable]
+    [DataContract(IsReference = true)]
     public class User
     {
         #region Const
@@ -24,21 +27,14 @@ namespace KMA.APZRPMJ2018.RequestSimulator.DBModels
 
         #region Properties
 
-        public Guid Guid { get; private set; }
-
-        private string FirstName { get; set; }
-
-        private string LastName { get; set; }
-
-        private string Email { get; set; }
-
-        public string Login { get; private set; }
-
-        private string Password { get; set; }
-
-        private DateTime LastLoginDate { get; set; }
-
-        public List<Request> Requests { get; private set; }
+        [DataMember] public Guid Guid { get; private set; }
+        [DataMember] private string FirstName { get; set; }
+        [DataMember] private string LastName { get; set; }
+        [DataMember] private string Email { get; set; }
+        [DataMember] public string Login { get; private set; }
+        [DataMember] private string Password { get; set; }
+        [DataMember] private DateTime LastLoginDate { get; set; }
+        [DataMember] public List<Request> Requests { get; private set; }
 
         #endregion
 
