@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using KMA.APZRPMJ2018.RequestSimulator.DBModels;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
 

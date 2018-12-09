@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceProcess;
-using System.Threading;
 using KMA.APZRPMJ2018.RequestSimulator.Tools;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.RequestService
@@ -37,11 +35,11 @@ namespace KMA.APZRPMJ2018.RequestSimulator.RequestService
  
             try
             {
-                if (_serviceHost != null)
-                    _serviceHost.Close();
+                _serviceHost?.Close();
             }
-            catch
+            catch(Exception e)
             {
+                Logger.Log("Closing service in OnStart", e);
             }
             try
             {

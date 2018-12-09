@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using KMA.APZRPMJ2018.RequestSimulator.DBModels;
-using KMA.APZRPMJ2018.RequestSimulator.RequestServiceInterface;
 
 namespace KMA.APZRPMJ2018.RequestSimulator.RequestServiceInterface
 {

@@ -1,6 +1,5 @@
 namespace KMA.APZRPMJ2018.RequestSimulator.DBAdapter.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class Lab5Migrations : DbMigration
